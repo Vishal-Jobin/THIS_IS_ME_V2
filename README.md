@@ -1,4 +1,4 @@
-# Independent Practice® — multi-page portfolio
+# THIS-IS-ME  V2® — multi-page portfolio
 
 A static, multi-page portfolio with six separate HTML pages, shared styling/interaction code, a light/dark theme, distinct fullscreen page transitions, and scroll choreography. It is a design prototype: replace the sample biography, work, credentials, images, profiles, and location stories before publishing.
 
