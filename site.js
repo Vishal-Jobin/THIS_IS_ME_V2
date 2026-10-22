@@ -183,6 +183,10 @@
       if (e.target.closest('#conceptEngine')) return;
       if (isNavigating || e.ctrlKey) return;
 
+      const isScrollable = document.documentElement.scrollHeight > window.innerHeight + 20;
+      const isAtBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 15);
+      if (isScrollable && !isAtBottom && e.deltaY > 0) return;
+
       if (e.deltaY > 0) {
         e.preventDefault();
         cancelAnimationFrame(springAnim);
@@ -216,6 +220,11 @@
 
     window.addEventListener('touchmove', e => {
       if (!isTouching || isNavigating) return;
+
+      const isScrollable = document.documentElement.scrollHeight > window.innerHeight + 20;
+      const isAtBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 15);
+      if (isScrollable && !isAtBottom) return;
+
       const currentY = e.touches[0]?.clientY || 0;
       const diffY = touchStartY - currentY;
       if (diffY > 0) {
