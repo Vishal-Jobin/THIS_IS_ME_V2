@@ -1,0 +1,5 @@
+PORTFOLIO ASSETS
+
+1) Replace assets/chrome-v-512.png with your preferred 512x512 site icon. A temporary Independent Practice icon is included so every page has a favicon immediately.
+2) Add your title/name-reveal clip at assets/logo_vid1.mp4. The About / Me mode plays it muted, inline, and on a loop. A designed fallback appears until the video loads. For smooth playback, export H.264 MP4, 1920x1080 or 1280x720, 24/30 fps, moderate bitrate, with matching start/end frames.
+3) To replace the sample music, overwrite the three WAV files in assets/music/ with your own supported MP3/WAV audio and keep the filenames, or edit the `musicTracks` list in site.js.
