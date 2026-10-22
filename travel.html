@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111923"><meta name="description" content="An interactive travel atlas — rotating globe, destinations, photographs, and field notes."><title>Travel Atlas — Independent Practice®</title><script>try{const t=localStorage.getItem('ip-theme');if(t)document.documentElement.dataset.theme=t;if(sessionStorage.getItem('ip-route-enter')){document.documentElement.classList.add('route-enter','route-enter--'+(sessionStorage.getItem('ip-route-kind')||'home'))}}catch(e){}</script><link rel="icon" type="image/png" sizes="512x512" href="assets/chrome-v-512.png"><link rel="stylesheet" href="styles.css"></head>
+<body class="travel-page" data-page="travel"><div class="noise" aria-hidden="true"></div><div class="scroll-progress" id="scrollProgress"></div><div class="transition-curtain" id="transitionCurtain" aria-hidden="true"></div>
+<header class="site-header" id="siteHeader"><nav class="nav-links" aria-label="Main navigation"><a class="nav-link" href="index.html">HOME</a><a class="nav-link" href="about.html">ABOUT</a><a class="nav-link" href="works.html">WORKS</a><a class="nav-link active" href="travel.html" aria-current="page">TRAVEL</a><a class="nav-link" href="achievements.html">SKILLS+</a><a class="nav-link" href="contact.html">CONTACT</a></nav><button class="theme-toggle" id="themeToggle" aria-label="Switch to light theme" title="Toggle light/dark theme"><svg class="theme-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button></header>
+<main class="page-wrap travel-page-wrap">
+<div class="page-topline"><div class="section-index"><b>03</b><span>/ An atlas of memories</span></div><div class="section-aside">Real places. Personal coordinates.</div></div>
+<div class="travel-heading">
+  <div class="travel-status-telemetry reveal">
+    <span class="telemetry-beacon"></span>
+    <span class="telemetry-tag">GLOBAL DISPATCH · 07 COORDINATES ACTIVE</span>
+    <span class="telemetry-coord" id="headerCoordTicker">09° 56′ N / 76° 16′ E</span>
+  </div>
+  <h1 class="page-heading reveal ending-title-travel-hero">
+    <span class="title-line-top">The world</span>
+    <span class="title-line-bot">is a <span class="stroke scroll-fill kinetic-cyan-gradient" data-text="workshop.">workshop.</span></span>
+  </h1>
+  <p class="heading-copy reveal">Places change your point of view. Rotate the globe, find a pin, and take a short trip into the memories attached to it. Select a place to depart.</p>
+</div>
+<section class="globe-stage reveal" id="globeStage" aria-label="Interactive rotating 3D globe"><div class="globe-meta"><span><i class="live-mark">Globe online</i> / Interactive atlas</span><span>Drag to rotate · Select a destination</span></div><canvas class="globe-canvas" id="globeCanvas" aria-label="Drag the globe to rotate it" role="img"></canvas><div class="globe-halo"></div><div class="globe-pins" id="globePins"><button class="location-pin" data-id="kochi" aria-label="Explore Kochi, India"><span>Kochi, IN ↗</span></button><button class="location-pin" data-id="singapore" aria-label="Explore Singapore"><span>Singapore ↗</span></button><button class="location-pin" data-id="kuala-lumpur" aria-label="Explore Kuala Lumpur, Malaysia"><span>Kuala Lumpur ↗</span></button><button class="location-pin" data-id="bangkok" aria-label="Explore Bangkok, Thailand"><span>Bangkok ↗</span></button><button class="location-pin" data-id="kuwait" aria-label="Explore Kuwait City, Kuwait"><span>Kuwait City ↗</span></button><button class="location-pin" data-id="tokyo" aria-label="Explore Tokyo, Japan"><span>Tokyo ↗</span></button><button class="location-pin" data-id="london" aria-label="Explore London, United Kingdom"><span>London ↗</span></button></div><div class="globe-center-label"><div class="tiny">One planet / endless perspective</div><h3>Where to next?</h3></div><div class="globe-instruction"><b>↔</b><span>Move the world<br>to change your view</span></div><div class="globe-coordinates">Lat / long<br><strong id="globeCoords">09° 56′ N — 76° 16′ E</strong></div></section>
+<div class="atlas-destination-rail" aria-label="Choose a destination directly">
+  <div class="atlas-rail-label"><span>DESTINATION INDEX</span><b>07 LOCATIONS / TAP TO OPEN</b></div>
+  <div class="atlas-destination-list">
+    <button type="button" data-destination-shortcut="kochi"><i>01</i><span>Kerala</span><small>India</small><b>↗</b></button>
+    <button type="button" data-destination-shortcut="singapore"><i>02</i><span>Singapore</span><small>Singapore</small><b>↗</b></button>
+    <button type="button" data-destination-shortcut="kuala-lumpur"><i>03</i><span>Kuala Lumpur</span><small>Malaysia</small><b>↗</b></button>
+    <button type="button" data-destination-shortcut="bangkok"><i>04</i><span>Bangkok</span><small>Thailand</small><b>↗</b></button>
+    <button type="button" data-destination-shortcut="kuwait"><i>05</i><span>Kuwait City</span><small>Kuwait</small><b>↗</b></button>
+    <button type="button" data-destination-shortcut="tokyo"><i>06</i><span>Tokyo</span><small>Japan</small><b>↗</b></button>
+    <button type="button" data-destination-shortcut="london"><i>07</i><span>London</span><small>United Kingdom</small><b>↗</b></button>
+  </div>
+</div>
+<p class="globe-note">Atlas prototype / Replace illustrative destination photos and stories with your own travel records.</p>
+
+<!-- Dynamic Destination View with Kinetic Motion & Interactive Cards -->
+<section class="destination-view" id="destinationView" aria-live="polite" aria-label="Selected destination details">
+  <div class="destination-hero" id="destinationHero">
+    <div class="destination-actions">
+      <button type="button" id="backToGlobe">← Back to globe</button>
+      <div class="destination-live-tag"><span class="live-dot-pulse"></span> DESTINATION LOCKED</div>
+    </div>
+    <div class="destination-content">
+      <div class="dest-index" id="destIndex">Field note / 001 / India</div>
+      <h2 class="destination-name" id="destName">Kerala<span>India.</span></h2>
+      <p class="destination-subtitle" id="destSubtitle"></p>
+    </div>
+  </div>
+  
+  <div class="destination-facts" id="destFacts">
+    <div class="dest-fact"><strong id="destLat">09° 56′ N</strong><span>Latitude</span></div>
+    <div class="dest-fact"><strong id="destLon">76° 16′ E</strong><span>Longitude</span></div>
+    <div class="dest-fact"><strong id="destCount">01 / 07</strong><span>Field note</span></div>
+    <div class="dest-fact"><strong id="destMood">Coastal</strong><span>Memory type</span></div>
+  </div>
+
+  <div class="destination-story">
+    <div>
+      <div class="eyebrow">A note from the field</div>
+      <h3 id="destStoryTitle">A familiar place can still surprise you.</h3>
+    </div>
+    <p id="destStory"></p>
+  </div>
+
+  <div class="dest-gallery-head">
+    <div>
+      <div class="eyebrow">Collected frames</div>
+      <h3>Postcards from here.</h3>
+    </div>
+    <span class="tiny" id="destGalleryCount">04 images / sample</span>
+  </div>
+
+  <div class="dest-gallery" id="destGallery"></div>
+
+  <div class="dest-notes">
+    <div class="dest-notes-header">
+      <div>
+        <label for="destNotes">Personal field notes</label>
+        <p>Your notes save locally in this browser. Add a moment, a place, a name to remember.</p>
+      </div>
+      <span class="notes-status-badge" id="notesStatusBadge">● Saved to memory</span>
+    </div>
+    <textarea id="destNotes" placeholder="A little detail I don't want to forget…" aria-label="Personal travel notes"></textarea>
+  </div>
+</section>
+
+<!-- Travel Closing Statement: Kinetic typography & tightened spacing -->
+<section class="page-ending-section travel-ending-section">
+  <div class="hairline" data-draw-line></div>
+  <div class="page-topline" style="margin-top:22px"><div class="section-index"><b>↗</b><span>Every trip leaves a trace</span></div><div class="section-aside">The atlas grows one pin at a time</div></div>
+  <div class="heading-grid">
+    <h2 class="page-heading reveal ending-title-travel">
+      <span class="title-line-1 font-display">Not just places.</span>
+      <span class="title-line-2 kinetic-cyan-gradient" data-text="PERSPECTIVE.">PERSPECTIVE.</span>
+    </h2>
+    <div class="reveal">
+      <p class="heading-copy">The best travel archive is personal: a small image, a precise detail, a sound, a meal, a moment that changed the way you see something.</p>
+      <a class="pill-link" href="contact.html">Share a story <span class="arrow">↗</span></a>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer"><div class="footer-left">© <span data-year></span> Independent Practice®</div><div class="footer-mid"><a href="index.html">Home</a><a href="about.html">About</a><a href="works.html">Works</a><a href="achievements.html">Archive</a></div><div class="footer-right">Designed in curiosity <span>♥</span></div></footer>
+<div class="flight-overlay" id="flightOverlay" role="status" aria-live="assertive" aria-hidden="true" data-phase="boarding">
+<div class="flight-sky" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="flight-scanline" aria-hidden="true"></div><div class="flight-engine-flash" aria-hidden="true"></div><div class="flight-flightcode" aria-hidden="true"><span>ROUTE LOCKED</span><b>GO</b><span>FIELD TRANSIT / 01</span></div>
+<header class="flight-meta"><span><i class="flight-live-dot"></i>Atlas flight systems / route acquired</span><span id="flightRouteTop">Boarding pass / Singapore</span></header>
+<div class="flight-stage"><div class="flight-coordinate flight-coordinate-a">A / DEPARTURE<br><b>09° 56′ N</b></div><div class="flight-coordinate flight-coordinate-b">B / ARRIVAL<br><b id="flightArrivalCoord">01° 21′ N</b></div>
+<div class="flight-route" aria-hidden="true"><svg viewBox="0 0 1440 420" preserveAspectRatio="none" role="presentation"><defs><linearGradient id="flightLineGradient" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".15"/><stop offset=".55" stop-color="#dcff59"/><stop offset="1" stop-color="#fff"/></linearGradient><filter id="flightGlow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><path class="flight-path-under" d="M -20 340 C 180 5 405 420 650 210 S 1080 5 1460 135"/><path class="flight-path" id="flightPath" pathLength="1000" d="M -20 340 C 180 5 405 420 650 210 S 1080 5 1460 135"/><path class="flight-route-dashes" d="M -20 340 C 180 5 405 420 650 210 S 1080 5 1460 135"/><circle class="flight-route-start" cx="5" cy="320" r="5"/><circle class="flight-route-end" cx="1420" cy="145" r="7"/><g class="flight-plane-group" id="flightPlaneGroup"><g transform="translate(-32,-24)" filter="url(#flightGlow)"><path d="M4 25 58 1 43 28 58 48 4 25Z" fill="#f7f7f4"/><path d="M4 25 43 28 24 36Z" fill="#dcff59"/><path d="M22 18 38 16 30 23Z" fill="#dcff59"/></g><animateMotion id="planeMotion" dur="3.25s" begin="indefinite" fill="freeze" rotate="auto" path="M -20 340 C 180 5 405 420 650 210 S 1080 5 1460 135"/></g></svg></div>
+<div class="flight-word" id="flightTitle">Next stop<span id="flightPlace">Singapore.</span></div><div class="flight-status-note" id="flightBottomLabel">Checking route conditions…</div><div class="flight-altitude">ALT <b id="flightAltitude">0000</b> FT <span>·</span> SPEED <b id="flightSpeed">000</b> KTS</div></div>
+<footer class="flight-bottom"><div class="flight-phase-list"><span class="active" data-flight-phase="boarding">01 / Boarding</span><span data-flight-phase="takeoff">02 / Takeoff</span><span data-flight-phase="cruise">03 / Cruise</span><span data-flight-phase="arrival">04 / Arrival</span></div><div class="flight-progress-wrap"><div class="flight-progress"><span></span></div><div id="flightProgressText">Preparing departure / 00%</div></div></footer>
+</div>
+<script src="assets/three.min.js"></script>
+<script src="site.js" defer></script></body></html>
